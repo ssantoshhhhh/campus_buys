@@ -5,7 +5,7 @@ import { assets } from '../assets/assets';
 import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQunatity } = useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
 
@@ -72,7 +72,7 @@ const Cart = () => {
                   onChange={(e) => {
                     const newQty = parseInt(e.target.value, 10);
                     if (newQty >= 1) {
-                      updateQuantity(item._id, item.size, newQty);
+                      updateQunatity(item._id, item.size, newQty);
                     }
                   }}
                   className='border max-w-10 sm:max-w-20 px-1 sm:px-2'
@@ -80,7 +80,7 @@ const Cart = () => {
 
                 {/* Delete icon */}
                 <img
-                  onClick={() => updateQuantity(item._id, item.size, 0)}
+                  onClick={() => updateQunatity(item._id, item.size, 0)}
                   className='w-4 mr-4 sm:w-4 cursor-pointer'
                   src={assets.bin_icon}
                   alt="Remove"
