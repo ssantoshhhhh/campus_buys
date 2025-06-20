@@ -128,7 +128,7 @@ export const products = [
         image: [apron_2, hero_apron,apron_6], // array of images
         category: "Women",
         subCategory: "Apron",
-        sizes: ["S", "M", "L"],
+        sizes: ["S", "M", "L","XL"],
         date: "",
         bestseller: true
       },

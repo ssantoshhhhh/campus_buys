@@ -67,7 +67,7 @@ const Product = () => {
             <img src={assets.star_icon} alt="star" className='w-3.5' />
             <img src={assets.star_icon} alt="star" className='w-3.5' />
             <img src={assets.star_dull_icon} alt="dull star" className='w-3.5' />
-            <p className='pl-2'>(122)</p>
+            <p className='pl-2'>(69)</p>
           </div>
 
           {/* Price with green color */}
@@ -120,7 +120,7 @@ const Product = () => {
         <div className='flex'>
           {/* Headings with green color */}
           <b className='border px-5 py-3 text-sm text-[#28a745]'>Description</b>
-          <p className='border px-5 py-3 text-sm text-[#28a745]'> Review {122} </p>
+          <p className='border px-5 py-3 text-sm text-[#28a745]'> Review {12} </p>
         </div>
         {/* Info section */}
         <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>

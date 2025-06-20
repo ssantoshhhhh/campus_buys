@@ -200,7 +200,7 @@ const Collection = () => {
 
         {/* Product Grid */}
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6'>
-          {filterProducts.map((item, index) => (
+          {filterProducts.slice(0,10).map((item, index) => (
             <ProductItem
               key={index}
               name={item.name}

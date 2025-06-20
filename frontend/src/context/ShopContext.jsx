@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { products } from "../assets/assets";
 import { toast } from "react-toastify";
 
@@ -10,13 +12,13 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState(() => {
-    // Load cart from localStorage if available
     const savedCart = localStorage.getItem('cartItems');
     return savedCart ? JSON.parse(savedCart) : {};
   });
+  const navigate = useNavigate(); 
+
 
   useEffect(() => {
-    // Save cart to localStorage whenever it changes
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
@@ -37,7 +39,9 @@ const ShopContextProvider = (props) => {
       cartData[itemId] = {};
       cartData[itemId][size] = 1;
     }
+
     setCartItems(cartData);
+    toast.success('✅ Product Added to Cart');
   };
 
   const removeFromCart = (itemId, size) => {
@@ -72,22 +76,37 @@ const ShopContextProvider = (props) => {
       if (product) {
         for (const size in cartItems[itemId]) {
           const quantity = cartItems[itemId][size];
-          total += product.price * quantity; // assuming product has a price property
+          total += product.price * quantity;
         }
       }
     }
     return total + delivery_fee;
   };
 
-  const  updateQunatity = async (itemId,size,quantity)=>{
+  const updateQunatity = async (itemId, size, quantity) => {
     let cartData = structuredClone(cartItems);
-
     cartData[itemId][size] = quantity;
-
     setCartItems(cartData);
-  }
+  };
 
-  const value = {
+  const getCartAmount = () => {
+    let totalAmt = 0;
+    for (const items in cartItems) {
+      let itemsInfo = products.find((product) => product._id === items);
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
+            totalAmt += itemsInfo.price * cartItems[items][item];
+          }
+        } catch (error) {
+          console.error("Error calculating cart amount:", error);
+        }
+      }
+    }
+    return totalAmt;
+  };
+
+  const value = { 
     products,
     currency,
     delivery_fee,
@@ -101,6 +120,8 @@ const ShopContextProvider = (props) => {
     getCartCount,
     getTotalPrice,
     updateQunatity,
+    getCartAmount,
+    navigate
   };
 
   return (
